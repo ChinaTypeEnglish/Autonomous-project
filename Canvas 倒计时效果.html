@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas 绚丽倒计时效果</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<canvas id="Canvas" style="border: 1px solid #ccc;background: #eee;">
+		<!-- 这里主要是处理兼容 -->
+		当前浏览器不支持canvas，请更换浏览器后再试！
+	</canvas>
+</body>
+<script type="text/javascript">
+	// window.onload = function () {
+		// var Canvas = document.getElementById("Canvas")
+		// 也可以这样子为canvas设置宽高
+		/* 
+			Canvas.width = 1024
+		 	Canvas.height = 768 
+	 	*/
+	 	// 也可以这样子处理浏览器兼容不足后所产生的提示信息
+	 	/*
+			if(Canvas.getContext("2d")){
+				var context = Canvas.getContext("2d");
+			}else{
+				alert("当前浏览器不支持canvas，请更换浏览器后再试！")
+			}
+	 	*/
+		// var context = Canvas.getContext("2d");
+
+		// 使用context绘制
+
+		// 画直线
+		// context.moveTo(100,100)  // 起点
+		// context.lineTo(700,700)  // 终点
+		// context.lineWidth = 5  // 线条宽度
+		// context.strokeStyle = "#ccc" // 线条颜色
+		// context.stroke()	 // 正式绘画函数
+
+		// context.fillStyle = "rgb(1,100,30)"  // 给多边形着色(背景色/填充色)
+		// context.fill()  // 正式绘制多边形
+
+		// 多个路径状态，分别在每个状态首尾写上开始和结束语，这样canvas才不会因为状态的问题二产生覆盖，达不到预料中的效果
+		// context.beginPath() // 开始
+		// context.closePath()  // 结束
+
+		/* 
+		绘制弧线
+		context.arc(
+			centerx,centery,radius, // 圆心坐标想x,y,以及半径的值
+			startingAngle,endingAngle, // 弧线的开始与结束
+			anticlockwise = false // 弧线是顺时针还是逆时针绘制，true为逆时针，false为顺时针
+		)
+		*/
+		// context.lineWidth = 5;
+		// context.strokeStyle = "red"
+		// context.arc(300,300,200,0,1.5*Math.PI);
+		// context.stroke();
+
+
+	// }
+</script>
+<script type="text/javascript" src="digit.js"></script>
+<script type="text/javascript" src="countdown.js"></script>
+</html>
