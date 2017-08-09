@@ -6,7 +6,8 @@ var MARGIN_LEFT = 30;
 
 // 月份是从0开始，而不是从1开始，但是日期却是从1开始而不是从0开始
 // 这里表示2017年8月11日16点58分42秒
-const endTime = new Date(2017,7,11,16,58,42);
+// var endTime = new Date();
+// endTime.setTime(endTime.getTime() + 3600*1000);
 var curShowTimeSeconds = 0;
 
 var balls = [];
@@ -14,6 +15,15 @@ const colors = ['#33e5b5','#0099cc','#aa66cc','#9933cc','#99cc00','#669900','#ff
 
 
 window.onload = function () {
+
+	WINDOW_WIDTH = document.body.clientWidth;
+	WINDOW_HEIGHT = document.body.clientHeight;
+
+	MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5);
+	MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
+
+	RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108) - 1;
+
 	var canvas = document.getElementById("Canvas");
 	var context = canvas.getContext("2d");
 
@@ -36,9 +46,14 @@ function GetCurrentShowTimeSeconds () {
 	var currTime = new Date();
 	// getTime()获取当前时间到1970年1月1日0零时零分零秒的毫秒数
 	// 以此可以判断两个时间节点的差值
-	var ret = endTime.getTime() - currTime.getTime();
-	ret = Math.round(ret / 1000);
-	return ret >= 0 ? ret : 0;
+	// ***** 按照以下注释中的写可以是倒计时，当然不能忘记第9,10行的注释代码 *****
+	// var ret = endTime.getTime() - currTime.getTime();
+	// ret = Math.round(ret / 1000);
+	// return ret >= 0 ? ret : 0;
+
+	// ***** 按照以下这么写可以是计时器 *****
+	var ret = currTime.getHours() * 3600 + currTime.getMinutes() * 60 + currTime.getSeconds();
+	return ret;
 }
 
 function update () {
@@ -93,6 +108,17 @@ function updateBalls() {
 			balls[i].vy = -balls[i].vy * 0.75;
 		}
 	}
+
+	var cnt = 0;
+	for(var i = 0; i < balls.length; i++){
+		if((balls[i].x + RADIUS) > 0 && (balls[i].x - RADIUS) < WINDOW_WIDTH){
+			balls[cnt++] = balls[i];
+		}
+	}
+
+	while(balls.length > Math.min(300,cnt)){
+		balls.pop()
+	}
 }
 
 function addBalls(x, y, num) {
@@ -130,7 +156,6 @@ function render(cxt) {
 	// 时
 	renderDigit(MARGIN_LEFT, MARGIN_TOP, parseInt(hours / 10), cxt)
 	renderDigit(MARGIN_LEFT + (2 * 7 + 1) * (RADIUS + 1), MARGIN_TOP, parseInt(hours % 10),cxt);
-	renderDigit(MARGIN_LEFT + 120 * (RADIUS + 1), MARGIN_TOP, parseInt(hours % 10),cxt);
 	renderDigit(MARGIN_LEFT + 30 * (RADIUS + 1), MARGIN_TOP, 10, cxt)
 	// 分
 	renderDigit(MARGIN_LEFT + 39 * (RADIUS + 1), MARGIN_TOP, parseInt(minutes / 10), cxt)
